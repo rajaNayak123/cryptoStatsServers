@@ -1,6 +1,12 @@
-const express = require('express');
+import express from "express";
+import {
+  getLatestStats,
+  getDeviation,
+} from "../controllers/statsController.js";
+
 const router = express.Router();
-const { getLatestStats, getDeviation } = require('../controllers/statsController');
-router.get('/stats', getLatestStats);
-router.get('/deviation', getDeviation);
-module.exports = router;
+
+router.get("/stats", getLatestStats);
+router.get("/deviation", getDeviation);
+
+export default router;

@@ -1,5 +1,5 @@
-const { publish } = require('../shared/nats');
+import { publish } from "../shared/nats";
 const triggerUpdate = async () => {
-  await publish('crypto.update', { trigger: 'update' });
+  await publish("crypto.update", { trigger: "update" });
 };
-module.exports = triggerUpdate;
+export { triggerUpdate };
