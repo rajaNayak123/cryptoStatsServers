@@ -5,4 +5,6 @@ const stdDev = (values) => {
     values.length;
   return Math.sqrt(variance);
 };
-export { stdDev };
+
+module.exports = { stdDev };
+

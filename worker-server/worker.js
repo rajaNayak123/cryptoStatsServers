@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
-import cron from "node-cron";
-import triggerUpdate from "./publisher.js";
+const dotenv = require("dotenv");
+const cron = require("node-cron");
+const triggerUpdate = require("./publisher.js");
 
 dotenv.config();
 

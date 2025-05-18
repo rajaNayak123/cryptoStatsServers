@@ -1,19 +1,33 @@
-import { connect, StringCodec } from 'nats';
+// nats.js
+const { connect, StringCodec } = require("nats");
 
 const sc = StringCodec();
 let nc;
 
-(async () => {
-  nc = await connect({ servers: process.env.NATS_URL });
-})();
+const init = async () => {
+  if (!nc) {
+    nc = await connect({ servers: process.env.NATS_URL || "nats://localhost:4222" });
+    console.log("NATS connected");
+  }
+};
 
-export const publish = async (subject, msg) => {
+const publish = async (subject, msg) => {
+  if (!nc) throw new Error("NATS connection not initialized. Call init() first.");
   await nc.publish(subject, sc.encode(JSON.stringify(msg)));
 };
 
-export const subscribe = async (subject, callback) => {
+const subscribe = async (subject, callback) => {
+  if (!nc) throw new Error("NATS connection not initialized. Call init() first.");
   const sub = nc.subscribe(subject);
-  for await (const m of sub) {
-    callback(JSON.parse(sc.decode(m.data)));
-  }
+  (async () => {
+    for await (const m of sub) {
+      callback(JSON.parse(sc.decode(m.data)));
+    }
+  })();
+};
+
+module.exports = {
+  init,
+  publish,
+  subscribe,
 };

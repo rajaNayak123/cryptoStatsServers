@@ -1,8 +1,8 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import statsRoutes from "./routes/statsRoutes.js";
-import "./nats/subscriber.js";
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const statsRoutes = require("./routes/statsRoutes.js");
+require("./nats/subscriber.js");
 
 dotenv.config();
 
@@ -16,4 +16,4 @@ mongoose
   .then(() => console.log("Mongo connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-export default app;
+module.exports = app;

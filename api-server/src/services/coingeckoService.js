@@ -1,7 +1,7 @@
-import axios from "axios";
-import {CryptoStat} from "../models/CryptoStat.js";
+const axios = require("axios");
+const { CryptoStat } = require("../models/CryptoStat.js");
 
-export const storeCryptoStats = async () => {
+const storeCryptoStats = async () => {
   const url = "https://api.coingecko.com/api/v3/simple/price";
   const coins = ["bitcoin", "ethereum", "matic-network"];
   const params = {
@@ -23,3 +23,5 @@ export const storeCryptoStats = async () => {
     await stat.save();
   }
 };
+
+module.exports = { storeCryptoStats };

@@ -1,6 +1,13 @@
-import nats from "../../../shared/nats.js";
-import { storeCryptoStats } from "../services/coingeckoService.js";
-nats.subscribe("crypto.update", async (msg) => {
-  console.log("Received:", msg);
-  await storeCryptoStats();
-});
+// subscriber.js
+const nats = require("../../../shared/nats.js");
+const { storeCryptoStats } = require("../services/coingeckoService.js");
+
+const startSubscription = () => {
+  nats.subscribe("crypto.update", async (msg) => {
+    console.log("Received:", msg);
+    await storeCryptoStats();
+  });
+};
+
+module.exports = { startSubscription };
+
